@@ -2,3 +2,28 @@
     height: 200px;
     object-fit: cover;
 }
+
+
+  .featuredProject-image {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    position: relative;
+    height: 100vh; 
+    overflow: hidden; 
+    margin-right: 1000px; 
+  }
+  .featuredProject-image img {
+    width: 100%; 
+    max-height: 100%; 
+    object-fit: cover; 
+    margin-right: 1000px;
+  }
+  .carousel-caption {
+    bottom: 45%;
+    z-index: 2;
+  }
+  .carousel-indicators {
+    bottom: 20%;
+  }
+
