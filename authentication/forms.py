@@ -3,7 +3,7 @@ from django import forms
 from .models import Register
 from django.core.validators import RegexValidator, FileExtensionValidator
 
-class SignupForm(forms.ModelForm):
+class SignupForm(forms.Form):
     first_name = forms.CharField(widget=forms.TextInput(
         attrs={
             "placeholder": "First Name",
@@ -22,7 +22,7 @@ class SignupForm(forms.ModelForm):
         "placeholder": "Password",
         "class": "form-control"
     }))
-    confirmPassword = forms.CharField(widget=forms.PasswordInput(attrs={
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
         "placeholder": "Confirm Password",
         "class": "form-control"
     }), label="confirm password", required=True, min_length=8, validators=[

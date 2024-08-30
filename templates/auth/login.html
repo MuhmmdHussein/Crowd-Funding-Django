@@ -1,9 +1,9 @@
-{% extends 'layouts/base_sections.html' %}
+{% extends 'layouts/base.html' %}
 {% load static %}
 
 {% block title %}Log In {% endblock title %}
 
-{% block body %} class="index-page bg-gray-200" {% endblock body %}
+{% block body %} class="index-page bg-white" {% endblock body %}
 
 {% block content %}
 <section>
@@ -36,10 +36,6 @@
                     <div class="mb-3">
                     {{ login_form.password }}
                     </div>
-                    <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                    </div>
                     <div class="text-center">
                         <button type="submit" name="login" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign
                         in</button>
@@ -59,10 +55,11 @@
                 </div>
             </div>
             </div>
-            <div
-            class="col-6 d-lg-block d-none h-100 text-center justify-content-end align-items-end">
-                <img src="/static/assets/images/login_vector.jpg" alt="login_vector" class="ms-auto img-fluid w-100 h-100">
-            </div>
+             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+          <div class="position-relative  h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
+            <img src="{% static 'assets/img/login_vector.jpg' %}" alt="login_vector" class="opacity-6 rounded-5">
+          </div>
+        </div>
         </div>
         </div>
     </div>
