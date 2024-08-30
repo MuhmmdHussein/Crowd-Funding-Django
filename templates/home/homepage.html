@@ -1,0 +1,211 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Home Page {% endblock title %}
+
+{% block stylesheets %}
+<style>
+  .featuredProject-image {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    height: 100%;
+  }
+
+  .featuredProject-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .featuredProject-image:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85));
+    z-index: 1;
+  }
+
+  .carousel-caption {
+    bottom: 45%;
+    z-index: 2;
+  }
+
+  .carousel-indicators {
+    bottom: 20%;
+  }
+
+  #featured .card.card-background.card-background-mask-primary::after {
+    background-image: linear-gradient(310deg, #8d0599 0%, #ed3d3d 100%);
+  }
+
+  .card-background {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .full-background {
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+  }
+
+  .btn-round {
+    border-radius: 50px;
+  }
+</style>
+{% endblock stylesheets %}
+
+{% block body_class %} index-page {% endblock body_class %}
+
+{% block content %}
+
+<!-- Static Image -->
+
+<header class="header-2">
+  <div class="page-header section-height-75 relative">
+    <div class="col-md-12 p-0">
+      <div class="row">
+        <div class="featuredProject-image">
+          <!-- Assuming images is a list and you want the first image -->
+          {% if images %}
+            <img src="{{ images.0 }}" alt="Featured Project Image">
+          {% else %}
+            <img src="{% static 'default_image.jpg' %}" alt="Default Image">
+          {% endif %}
+          <div class="carousel-caption d-none d-md-block">
+              <h3 class="text-light font-weight-bolder">{{ highest_rated_projects.first.title|title }}</h3>
+              <p class="w-75 mx-auto text-uppercase text-light">Click and start donating now</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="position-absolute w-100 z-index-1 bottom-0">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="moving-waves">
+          <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40)" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+          <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+          <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+          <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95)" />
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- Counter -->
+<section class="pt-3 pb-4" id="count-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 z-index-2 border-radius-xl mt-n8 mx-auto py-3 blur shadow-blur">
+        <div class="row">
+          <div class="col-md-4 position-relative">
+            <div class="p-3 text-center">
+              <h3 class="text-gradient text-primary">
+                <span id="state1">{{ donors_count }}</span>+
+              </h3>
+              <h5 class="mt-3">Donors</h5>
+              <p class="text-sm">
+                People of different ages are welcome to donate
+              </p>
+            </div>
+            <hr class="vertical dark" />
+          </div>
+          <div class="col-md-4 position-relative">
+            <div class="p-3 text-center">
+              <h3 class="text-gradient text-primary">
+                <span id="state2">{{ projects_count }}</span>+
+              </h3>
+              <h5 class="mt-3">Projects</h5>
+              <p class="text-sm">Various Projects that deserve to be donated</p>
+            </div>
+            <hr class="vertical dark" />
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 text-center">
+              <h3 class="text-gradient text-primary">
+                <span id="state3">{{ reviews_count }}</span>+
+              </h3>
+              <h5 class="mt-3">Reviews</h5>
+              <p class="text-sm">Feel free to rate projects and give us feedback</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- List Projects -->
+<section class="my-5 py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Latest Projects -->
+      <div class="col-lg-6 ms-auto me-auto p-lg-2 mt-lg-0 mt-4">
+        <div class="card card-background card-background-mask-primary tilt">
+          <div class="full-background" style="
+              background-image: url('https://images.unsplash.com/photo-1579389083395-4507e98b5e67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80');
+            "></div>
+          <div class="card-body pt-5 text-center">
+            <h2 class="text-white up mb-4">
+              <i class="fa-solid fa-list-check mx-3"></i>Latest Projects
+            </h2>
+            <ul class="text-left">
+              {% for project in latest_5_projects %}
+              <li>
+                <a href="{% url 'show_project' project.id %}" class="text-light font-weight-bold">
+                  {{ project.title|title }}
+                </a>
+              </li>
+              {% empty %}
+              <h5 class="text-light text-center">No Projects Found</h5>
+              {% endfor %}
+            </ul>
+            <a href="{% url 'all_projects' %}" class="btn btn-outline-white mt-3 btn-round">View All</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Projects -->
+      <div id="featured" class="col-lg-6 mt-lg-0 mt-4 p-lg-2">
+        <div class="card card-background card-background-mask-primary tilt">
+          <div class="full-background" style="
+              background-image: url('https://images.unsplash.com/photo-1602506468430-7ed6604cb8e4?ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGZlYXR1cmVkJTIwcHJvamVjdHxlbnwwfHx8fDE2Nzg1NzEwMzM&ixlib=rb-1.2.1');
+            "></div>
+          <div class="card-body pt-5 text-center">
+            <h2 class="text-white up mb-4">
+              <i class="fa-solid fa-star mx-3"></i>Featured Projects
+            </h2>
+            <ul class="text-left">
+              {% for project in featured_projects %}
+              <li>
+                <a href="{% url 'show_project' project.id %}" class="text-light font-weight-bold">
+                  {{ project.title|title }}
+                </a>
+              </li>
+              {% empty %}
+              <h5 class="text-light text-center">No Projects Found</h5>
+              {% endfor %}
+            </ul>
+            <a href="{% url 'all_projects' %}" class="btn btn-outline-white mt-3 btn-round">View All</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
