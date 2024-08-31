@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'authentication',
     'theme_soft_design',
     "home",
+    "profiles",
 ]
 
 MIDDLEWARE = [

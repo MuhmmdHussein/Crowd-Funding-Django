@@ -15,16 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.conf import settings
-from django.conf.urls.static import static
+from profiles.views import EditProfile, profile
+
 urlpatterns = [
-    path('', include('home.urls')),
-    path("admin/", admin.site.urls),
-    path("", include('theme_soft_design.urls')),
-    path('auth/', include('authentication.urls')),
-    path('profiles/', include('profiles.urls')),
+    path('profile/',profile, name='profile'),
+    path('editProfile/',EditProfile, name='editProfile')
 ]
-
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
