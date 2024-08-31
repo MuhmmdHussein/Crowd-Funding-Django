@@ -1,1 +1,42 @@
-{% extends 'layouts/projects_template.html' %}
+{% extends 'layouts/base.html' %}
+
+{% block title %}All Projects{% endblock title %}
+
+{% block stylesheets %}
+<style>
+  .card {
+    margin-bottom: 1.5rem;
+  }
+  .card-img-top {
+    width: 100%;
+    height: auto;
+  }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if projects %}
+            {% for project in projects %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.details|slice:":100" }}{% if project.details|length > 100 %}...{% endif %}</p>
+                        <p class="card-text"><small class="text-muted">Target: ${{ project.total_target }}</small></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No Projects Found</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
