@@ -17,5 +17,5 @@ node_modules
 .venv/
 venv
 venv/
-db.sqlite3
-db
+# db.sqlite3
+# db

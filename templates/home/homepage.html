@@ -5,7 +5,7 @@
 
 {% block stylesheets %}
 <style>
-  
+
 </style>
 {% endblock stylesheets %}
 
@@ -18,7 +18,7 @@
     <div class="page-header section-height-75 relative mr-10">
       <div class="col-md-12 p-0">
         <div class="row">
-            <div class="featuredProject-image">
+            <div class="featuredProject-image" style="display: flex; justify-content: center; align-items: center">
                 <img src="{% static 'assets/img/cover.jpg' %}" alt="Featured Project Image">
                 <div class="carousel-caption d-none d-md-block">
                   <h3 class="text-light font-weight-bolder">{{ highest_rated_projects.first.title|title }}</h3>
