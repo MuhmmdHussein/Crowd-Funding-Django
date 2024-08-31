@@ -39,7 +39,7 @@ def auth_login(request):
             else:
                 msg = 'Invalid email or password.'
         form = LoginForm()
-        return render(request=request, template_name="accounts/login.html", context={"login_form":form , "msg": msg})
+        return render(request=request, template_name="auth/login.html", context={"login_form":form , "msg": msg})
     else:
         return redirect("/" )
 
