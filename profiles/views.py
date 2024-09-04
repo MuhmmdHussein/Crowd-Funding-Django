@@ -12,6 +12,6 @@ def profile (request):
 
 
 def EditProfile(request):
-   
+     
     return render(request, 'profile/editProfile.html')
     
