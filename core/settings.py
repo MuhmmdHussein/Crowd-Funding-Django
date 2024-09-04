@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'theme_soft_design',
     "home",
     "profiles",
+    "projects.apps.ProjectsConfig"
 ]
 
 MIDDLEWARE = [

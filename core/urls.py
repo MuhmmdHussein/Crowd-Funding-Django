@@ -23,6 +23,7 @@ urlpatterns = [
     path("", include('theme_soft_design.urls')),
     path('auth/', include('authentication.urls')),
     path('profiles/', include('profiles.urls')),
+    path('projects/', include('projects.urls')),
 ]
 
 
