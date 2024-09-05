@@ -1,8 +1,5 @@
-
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
-
 from authentication.models import Register
 
 
@@ -121,24 +118,24 @@ class Rating(models.Model):
 
 
 """
-    2 - Projects:
-        - The user can create a project fund raise campaign which contains:
-        - Title
-        - Details
-        - Category (from list of categories added previously by admins)
-        - Multiple pictures
-        - Total target (i.e 250000 EGP)
-        - Multiple Tags
-        - Set start/end time for the campaign
-        - Users can view any project and donate to the total target
-        - Users can add comments on the projects
-        - Bonus: Comments can have replies
-        - Users can report inappropriate projects
-        - Users can report inappropriate comments
-        - Users can rate the projects
-        - Project creator can cancel the project if the donations are less than
-        25% of the target
-        - Project page should show the overall average rating of the project
-        - Project page should show 4 other similar projects based on project
+2 - Projects:
+    - The user can create a project fund raise campaign which contains:
+    - Title
+    - Details
+    - Category (from list of categories added previously by admins)
+    - Multiple pictures
+    - Total target (i.e 250000 EGP)
+    - Multiple Tags
+    - Set start/end time for the campaign
+    - Users can view any project and donate to the total target
+    - Users can add comments on the projects
+    - Bonus: Comments can have replies
+    - Users can report inappropriate projects
+    - Users can report inappropriate comments
+    - Users can rate the projects
+    - Project creator can cancel the project if the donations are less than
+    25% of the target
+    - Project page should show the overall average rating of the project
+    - Project page should show 4 other similar projects based on project
 
 """

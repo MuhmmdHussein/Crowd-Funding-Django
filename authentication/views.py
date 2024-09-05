@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import timezone, datetime
 from django.shortcuts import redirect, render
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.exceptions import ObjectDoesNotExist
@@ -24,7 +24,7 @@ def auth_login(request):
                     user = None
                 if user is not None and check_password(password, user.password):
                     if user.is_active:
-                        user.last_login = timezone.now()
+                        user.last_login = datetime.now()
                         user.is_login = True
                         user.save()
                         request.session["user_id"] = user.id

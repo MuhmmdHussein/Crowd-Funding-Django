@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}All Projects{% endblock title %}
+
+{% block stylesheets %}
+    <style>
+        .card {
+            margin-bottom: 1.5rem;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Create Project</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
