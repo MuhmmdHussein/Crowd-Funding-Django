@@ -76,7 +76,7 @@
                   <div class="d-none d-lg-block">
 
                     <li class="nav-item dropdown dropdown-hover dropdown-subitem">
-                      <a class="dropdown-item py-2 ps-3 border-radius-md" 
+                      <a class="dropdown-item py-2 ps-3 border-radius-md"
                       {% comment %} href="{% url 'all_projects' %}" {% endcomment %}
                       >
                         <div class="d-flex">
@@ -111,9 +111,9 @@
                     </li>
                     {%for category in all_categories%}
                     <li class="nav-item dropdown dropdown-hover dropdown-subitem">
-                      <a class="dropdown-item py-2 ps-3 border-radius-md" 
-                      {% comment %} href="{% url 'get_category' category.id %} {% endcomment %}
-                      ">
+                      <a class="dropdown-item py-2 ps-3 border-radius-md"
+                      {% comment %} href="{% url 'get_category' category.id %}" {% endcomment %}
+                      >
                         <div class="d-flex">
                           <div class="icon h-10 me-3 d-flex mt-1">
                             <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
@@ -136,7 +136,7 @@
 
               <!-- Search  -->
               <li class="nav-item ms-lg-auto">
-                <form class="search-container" 
+                <form class="search-container"
                 {% comment %} action="{% url 'search-result' %}" {% endcomment %}
                 >
                   <input class="bg-transparent" type="search" placeholder="Search.." name="search" required>
@@ -145,23 +145,21 @@
               </li>
 
               {% if 'user_id' in request.session %}
-              <li class="nav-item dropdown ms-lg-auto">
+              <li class="nav-item dropdown dropdown-hover ms-lg-auto">
                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="{{ user.profile_img.url }}" alt="profile" style="width: 30px; height: 30px;" class="d-inline-block align-text-top rounded-circle"/>
                   <p class="m-0 mx-2">{{user.first_name|title}}</p>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-light " aria-labelledby="navbarDarkDropdownMenuLink">
-                  <li class="nav-item ms-lg-auto">
-                    <a class="nav-link nav-link-icon me-2 "
-                     {% comment %} href="{% url 'profile'  %}" {% endcomment %}
-                     >
+                <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                  <li class="dropdown-item ms-lg-auto">
+                    <a class="nav-link nav-link-icon me-2 " href="{% url 'profile'  %}">
                       <i class="fa-solid fa-user me-1"></i>
                       <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Profile">
                       Profile
                       </p>
                     </a>
                   </li>
-                  <li class="nav-item ms-lg-auto">
+                  <li class="dropdown-item ms-lg-auto">
                     <a class="nav-link nav-link-icon me-2" href="{% url 'logout' %}">
                       <i class="fa fa-sign-out me-1"></i>
                       <p

@@ -27,7 +27,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <form method="post" role="form">
+                <form method="post" role="form" enctype="multipart/form-data">
                   {% csrf_token %}
 
                   <div class="mb-3">{{ signup_form.first_name }}</div>
