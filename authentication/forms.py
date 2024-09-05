@@ -58,7 +58,7 @@ class SignupForm(forms.Form):
         widget=forms.FileInput(
             attrs={"placeholder": "Profile Image", "class": "form-control"}
         ),
-        required=False,
+        required=True,
     )
 
     def clean(self):
