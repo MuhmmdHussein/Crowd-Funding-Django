@@ -26,9 +26,9 @@
                 <div class="card-body text-center">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                     class="rounded-circle img-fluid" style="inline-size: 150px;">
-                  <h5 class="my-3">Johnatan Smith</h5>
+                  <h5 class="my-3">{{user.first_name}}</h5>
                   <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
-                  <p class="text-muted mb-4">example@gmail.com</p>
+                  <p class="text-muted mb-4">{{user.email}}</p>
                   <div class="d-flex justify-content-center mb-2">
                     <a type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary"  href="{% url 'editProfile' %}">Edit</a>
                     <a type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary"  href="{% url 'editProfile' %}">Delete</a>
