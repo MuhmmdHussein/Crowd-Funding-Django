@@ -179,11 +179,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "/"
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 
 MEDIA_URL = "/media/"
@@ -193,11 +188,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 AUTH_USER_MODEL = "authentication.Register"
 
 # Mail Settings
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "assemabudeif@gmail.com"
-EMAIL_HOST_PASSWORD = "vyljvotbkhnrzwhi"
+EMAIL_HOST = "smtp.mailersend.net"
+EMAIL_HOST_USER = "MS_A53jLv@trial-vywj2lp085q47oqz.mlsender.net"
+EMAIL_HOST_PASSWORD = "2yMmGQfMEMaj6siD"
 EMAIL_PORT = 587
+
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_HOST_USER = "assemabudeif@gmail.com"
+# EMAIL_HOST_PASSWORD = "vyljvotbkhnrzwhi"
+# EMAIL_PORT = 587
 
 # vylj votb khnr zwhi

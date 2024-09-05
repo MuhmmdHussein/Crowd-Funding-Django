@@ -1,5 +1,5 @@
 from datetime import timezone, datetime
-from email.message import EmailMessage
+from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.hashers import make_password, check_password
@@ -17,6 +17,7 @@ from django.contrib.auth.tokens import default_token_generator
 from authentication.forms import LoginForm, SignupForm
 from authentication.models import Register
 from core import settings
+
 
 # Create your views here.
 
@@ -111,8 +112,11 @@ def auth_signup(request):
 
 
 def activate(request, uidb64, token):
-    print(f"UID: {uidb64}")
+    print(f"UIDB64: {uidb64}")
     print(f"Token: {token}")
+    uid = force_str(urlsafe_base64_decode(uidb64))
+    print(f"UID: {uid}")
+    print(Register.objects.get(pk=uid))
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = Register.objects.get(pk=uid)
@@ -120,11 +124,12 @@ def activate(request, uidb64, token):
         user = None
 
     print(user)
+    print(default_token_generator.check_token(user, token))
 
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        return redirect("/login")
+        return redirect("login")
     else:
         return HttpResponse("Activation link is invalid!")
 
@@ -140,7 +145,8 @@ def send_activation_email(user, request):
         'token': token,
 
     })
-    send_mail(mail_subject, message, settings.EMAIL_HOST_USER, [user.email])
+    email = EmailMessage(subject=mail_subject, body=message, from_email=settings.EMAIL_HOST_USER, to=[user.email])
+    email.send()
 
 def logout(request):
     try:
