@@ -12,7 +12,7 @@ def all_projects_view(request):
     """
 
     all_projects = Project.objects.all()
-    return render(request, '', {'all_projects': all_projects})
+    return render(request, 'projects/all_projects.html', {'all_projects': all_projects})
 
 
 def add_project_view(request):
