@@ -2,7 +2,7 @@
 
 {% block title %} Project Details {% endblock title %}
 {% load static %}
-{% load ratings %}
+
 
 {% block stylesheets %}
 <link rel="stylesheet" href="../../static/assets/css/project-details.css">
@@ -17,68 +17,66 @@
 <!-- Delete Modal -->
 {% include "includes/modals/delete_modal.html" %}
     <style>
-    svg {
-    margin-bottom: 2em;
-}
+        svg {
+        margin-bottom: 2em;
+        }
 
-.rating_background {
-    fill: #e8e8e8;
-    height: 100%;
-    width: 100%;
-}
+        .rating_background {
+            fill: #e8e8e8;
+            height: 100%;
+            width: 100%;
+        }
 
-.rating_value {
-    fill: #ffb94b;
-    height: 100%;
-}
+        .rating_value {
+            fill: #ffb94b;
+            height: 100%;
+        }
 
-.rating {
-    grid-area: rating;
-    width: 5rem;
-}
+        .rating {
+            grid-area: rating;
+            width: 5rem;
+        }
 
-.rate {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    overflow: hidden;
-    flex-direction: row-reverse;
-    height: 40px;
-    position: relative;
-}
+        .rate {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            overflow: hidden;
+            flex-direction: row-reverse;
+            height: 40px;
+            position: relative;
+        }
 
-.rate-0 {
-    filter: grayscale(100%);
-}
+        .rate-0 {
+            filter: grayscale(100%);
+        }
 
-{#.rate>input {#}
-{#    display: none;#}
-{#}#}
+        {#.rate>input {#}
+        {#    display: none;#}
+        {#}#}
 
-.rate>label {
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    margin-top: auto;
-    transition: .3s;
-}
+        .rate>label {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            margin-top: auto;
+            transition: .3s;
+        }
 
 
-.feedback {
-    margin-top: 2vh;
-    align-items: center;
-    width: 100%;
-}
+        .feedback {
+            margin-top: 2vh;
+            align-items: center;
+            width: 100%;
+        }
 
-.feedback h4 {
-    margin: auto;
-    width: fit-content;
-}
+        .feedback h4 {
+            margin: auto;
+            width: fit-content;
+        }
 
     </style>
 
-    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
-<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 ...
 <div class="container">
   <div class="row">
@@ -284,13 +282,13 @@
                 </button>
 
 
-{#                  <form method="post" action="{% url 'project_rate' project.id %}">#}
-                  <form method="post" >
+                  <form method="post" action="{% url 'rate_project' project.id %}">
+{#                  <form method="post" >#}
                   <div class="feedback d-flex flex-wrap justify-content-around  ">
                     {% csrf_token %}
                         <select id="options" style="width: 40%" class="form-control px-2" name="options">
                             {% for counter in "12345" %}
-                                <option value="{{ counter }}">{{ counter }} Stars</option>
+                                <option value="{{ counter }}" {% if user_rating and user_rating.rating == forloop.counter %}selected{% endif %}>{{ counter }} Stars</option>
                             {% endfor %}
                         </select>
                     <div class="text-center" style="width: 40%;">
@@ -298,13 +296,10 @@
                     </div>
                   </div>
                   </form>
-
-
-
 {#                <form action="{% url 'create_report' project.id %}" method="POST" class="text-center">#}
                 <form  method="POST" class="text-center">
                   {%csrf_token%}
-                  <button class="btn btn-transparent shadow-none text-center mt-2 p-0" ">
+                  <button class="btn btn-transparent shadow-none text-center mt-2 p-0" >
                       <i class="fa-solid fa-flag"></i><small class="mx-2">Report this project</small>
                   </button>
                 </form>

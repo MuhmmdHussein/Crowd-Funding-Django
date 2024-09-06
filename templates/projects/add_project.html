@@ -15,6 +15,7 @@
 {% endblock stylesheets %}
 
 {% block content %}
+    {% include 'includes/modals/add_tag_modal.html' %}
   <section>
     <div class="page-header section-height-100">
       <div class="container">
@@ -35,8 +36,37 @@
                 <form method="post" role="form" enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    {{ form.as_p }}
-                    <div class=form-control">
+{#                    {{ form.as_p }}#}
+                    <div style="padding: 18px">
+                    {{ form.title }}
+                    </div>
+                    <div style="padding: 18px">
+                    {{ form.details }}
+                    </div>
+                    <div style="padding: 18px">
+                    {{ form.total_target }}
+                    </div>
+                    <div style="padding: 18px">
+                    {{ form.category }}
+                    </div>
+                    <div style="padding: 18px">
+                    {{ form.tags }}
+                    </div>
+                    {{ form.pictures }}
+                    
+                    
+
+                    <div style="padding: 18px">
+                    {{ form.start_time }}
+                    </div>
+                    <div style="padding: 18px">
+                    {{ form.end_time }}
+                    </div>
+
+
+
+
+                    <div class=form-control" style="padding: 18px">
                         <label for="id_images">Images:</label>
                         <input type="file" name="images" placeholder=" Image" class="form-control" accept="image/*" multiple required="required" id="id_images">
                     </div>
@@ -44,6 +74,11 @@
                     <button type="submit" name="signup" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Creat Project</button>
                   </div>
                 </form>
+                  
+                  <div class="text-center">
+                        <button  data-bs-target="#addTagModal" data-bs-toggle="modal" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Add Tag</button>
+                    </div>
+                 
               </div>
               
             </div>

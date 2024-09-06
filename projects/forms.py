@@ -31,11 +31,11 @@ class ProjectForm(forms.ModelForm):
     # )
     pictures = forms.ImageField(
         label=" image",
+        required=False,
         validators=[FileExtensionValidator(["jpg", "png", "jpeg"])],
         widget=forms.FileInput(
-            attrs={"placeholder": " Image", "class": "form-control"}
+            attrs={"placeholder": " Image", "class": "form-control d-none" }
         ),
-        required=True,
     )
     total_target = forms.DecimalField(
         max_digits=10, decimal_places=2,

@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from authentication.models import Register
 from projects.forms import ProjectForm, ProjectImageForm
-from projects.models import Project, Category, ProjectImage, Tag, Donation, Comment
+from projects.models import Project, Category, ProjectImage, Tag, Donation, Comment, Rating
 
 
 # Create your views here.
@@ -52,8 +52,7 @@ def project_details_view(request, project_id):
         user = Register.objects.filter(id=request.session['user_id']).first()
     else:
         user = Register()
-
-
+    user_has_rated = Rating.objects.filter(project=project, user=user).first()
     return render(request, 'projects/project_details.html', {
         'project': project,
         'project_images': project_images,
@@ -63,8 +62,10 @@ def project_details_view(request, project_id):
         'rating': project.average_rating() * 20,
         'rating_range': range(5, 0, -1),
         'comments': project.comments.all(),
-        'all_categories': Category.objects.all()
+        'all_categories': Category.objects.all(),
+        'user_rating': user_has_rated
     })
+
 
 def donate(request, project_id):
     if 'user_id' not in request.session:
@@ -124,4 +125,32 @@ def make_project_comment(request, project_id):
         )
         return redirect('project_details', project_id)
 
+
+def rate_project_method(request, project_id):
+    if 'user_id' not in request.session:
+        return redirect('login')
+
+    user = get_object_or_404(Register, id=request.session['user_id'])
+    project = get_object_or_404(Project, id=project_id)
+
+    if request.method == 'POST':
+        rating_value = request.POST.get('options')
+
+        if rating_value:
+            Rating.objects.update_or_create(
+                project=project,
+                user=user,
+                defaults={'rating': rating_value}
+            )
+
+    return redirect('project_details', project_id=project_id)
+
+
+def create_tage_method(request):
+    if request.method == 'POST':
+        Tag.objects.create(
+            name=request.POST['name']
+        )
+
+    return redirect('add-project')
 
