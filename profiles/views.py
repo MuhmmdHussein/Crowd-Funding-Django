@@ -6,6 +6,8 @@ from profiles.forms import EditProfileForm
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.exceptions import ObjectDoesNotExist
 
+from projects.models import Donation,Project
+
 
 # Create your views here.
 
@@ -14,18 +16,22 @@ def profile (request):
     if 'user_id'  in request.session :
         try:
             user_object= Register.objects.get(id = request.session['user_id'])
-            # projects =Project.objects.filter(user_id =  request.session['user_id'] )
-            # donations = Donation.objects.filter(user_id =  request.session['user_id'] )
+            projects =Project.objects.filter(created_by =  user_object )
+            donations = Donation.objects.filter(user =  user_object )
             
-            # images = []
-            # for project in projects:
-            #     images.append(project.image_set.all().first().images.url)
+            images = []
+            for project in projects:
+                first_image = project.images.first()
+                if first_image and first_image.image: 
+                    images.append(first_image.image.url)  
+                else:
+                    images.append(None)
+            project_images = zip(projects, images)
 
         except Register.DoesNotExist:
             return redirect('/')
         
-        # ,"projects":projects ,'images':images
-        return render(request, 'profile/Profile.html', {"user" :user_object })
+        return render(request, 'profile/Profile.html', {"user" :user_object ,"donations":donations,"projects":projects,'project_images':project_images})
     else:
         return redirect("/" )
     # return render(request, 'profile/Profile.html')
