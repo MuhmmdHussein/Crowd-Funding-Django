@@ -1,9 +1,12 @@
 from django.shortcuts import render
+
+from projects.models import Category
 from .models import Project
 
 def homepage(request):
 
-    return render(request, 'home/homepage.html')
+    all_categories = Category.objects.all()
+    return render(request, 'home/homepage.html', {'all_categories': all_categories})
 
 
 

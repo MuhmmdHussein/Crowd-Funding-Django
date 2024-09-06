@@ -1,12 +1,10 @@
 from django import forms
-from .models import Project, Category, Tag, Register
+from django.core.validators import FileExtensionValidator
+
+from .models import Project, Category, Tag, Register, ProjectImage
 
 
 class ProjectForm(forms.ModelForm):
-    class Meta:
-        model = Project
-        fields = ['title', 'details', 'category', 'pictures', 'total_target', 'tags', 'start_time', 'end_time']
-
     title = forms.CharField(
         max_length=250,
         widget=forms.TextInput(
@@ -24,11 +22,20 @@ class ProjectForm(forms.ModelForm):
             attrs={"class": "form-control"}
         )
     )
+    # pictures = forms.ImageField(
+    #     required=True,
+    #     validators=[FileExtensionValidator(["jpg", "png", "jpeg"])],
+    #     widget=forms.FileInput(
+    #         attrs={"class": "form-control"}
+    #     )
+    # )
     pictures = forms.ImageField(
-        required=False,
-        widget=forms.ClearableFileInput(
-            attrs={"class": "form-control-file"}
-        )
+        label=" image",
+        validators=[FileExtensionValidator(["jpg", "png", "jpeg"])],
+        widget=forms.FileInput(
+            attrs={"placeholder": " Image", "class": "form-control"}
+        ),
+        required=True,
     )
     total_target = forms.DecimalField(
         max_digits=10, decimal_places=2,
@@ -52,3 +59,14 @@ class ProjectForm(forms.ModelForm):
             attrs={"type": "datetime-local", "class": "form-control"}
         )
     )
+
+    class Meta:
+        model = Project
+        fields = ['title', 'details', 'category', 'pictures', 'total_target', 'tags', 'start_time', 'end_time']
+
+
+class ProjectImageForm(forms.ModelForm):
+    class Meta:
+        model = ProjectImage
+        fields = ['image']
+

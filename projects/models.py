@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from authentication.models import Register
+from core import settings
 
 
 # Create your models here.
@@ -20,6 +21,13 @@ class Category(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
     title = models.CharField(max_length=250)
     details = models.TextField()
@@ -30,12 +38,16 @@ class Project(models.Model):
     )
     pictures = models.ImageField(upload_to='project_pics/', blank=True, null=True)
     total_target = models.DecimalField(max_digits=10, decimal_places=2)
-    tags = models.ManyToManyField('Tag', related_name='projects')
+    tags = models.ManyToManyField(Tag, related_name='projects')
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     created_by = models.ForeignKey(Register, related_name='created_projects', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def get_donations(self):
+        return 5678
+    def get_progress(self):
+        return self.get_donations() / self.total_target * 100
     def __str__(self):
         return self.title
 
@@ -59,15 +71,19 @@ class Project(models.Model):
             self.delete()
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=50)
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='project_pics/')
 
     def __str__(self):
-        return self.name
+        return f"Image for {self.project.title}"
+
+
+
 
 
 class Donation(models.Model):
-    user = models.ForeignKey(User, related_name='donations', on_delete=models.CASCADE)
+    user = models.ForeignKey(Register, related_name='donations', on_delete=models.CASCADE)
     project = models.ForeignKey(Project, related_name='donations', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     donated_at = models.DateTimeField(auto_now_add=True)
@@ -77,7 +93,7 @@ class Donation(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey(Register, related_name='comments', on_delete=models.CASCADE)
     project = models.ForeignKey(Project, related_name='comments', on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -89,7 +105,7 @@ class Comment(models.Model):
 
 class CommentReport(models.Model):
     comment = models.ForeignKey(Comment, related_name='reports', on_delete=models.CASCADE)
-    reported_by = models.ForeignKey(User, related_name='comment_reports', on_delete=models.CASCADE)
+    reported_by = models.ForeignKey(Register, related_name='comment_reports', on_delete=models.CASCADE)
     reason = models.TextField()
     reported_at = models.DateTimeField(auto_now_add=True)
 
@@ -99,7 +115,7 @@ class CommentReport(models.Model):
 
 class ProjectReport(models.Model):
     project = models.ForeignKey(Project, related_name='reports', on_delete=models.CASCADE)
-    reported_by = models.ForeignKey(User, related_name='project_reports', on_delete=models.CASCADE)
+    reported_by = models.ForeignKey(Register, related_name='project_reports', on_delete=models.CASCADE)
     reason = models.TextField()
     reported_at = models.DateTimeField(auto_now_add=True)
 
@@ -109,7 +125,7 @@ class ProjectReport(models.Model):
 
 class Rating(models.Model):
     project = models.ForeignKey(Project, related_name='ratings', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, related_name='ratings', on_delete=models.CASCADE)
+    user = models.ForeignKey(Register, related_name='ratings', on_delete=models.CASCADE)
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     rated_at = models.DateTimeField(auto_now_add=True)
 
