@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,7 +7,7 @@
             </div>
 
 {#            <form role="form" id="contact-form" method="post" autocomplete="off" action={% url 'donate' project.id %}>#}
-            <form role="form" id="contact-form" method="post" autocomplete="off" >
+            <form role="form" id="contact-form" method="post" autocomplete="off" action="{% url 'donate' project.id %}" >
 
                 {% csrf_token %}
 

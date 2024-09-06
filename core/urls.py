@@ -24,6 +24,7 @@ urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('profiles/', include('profiles.urls')),
     path('projects/', include('projects.urls')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
 
 

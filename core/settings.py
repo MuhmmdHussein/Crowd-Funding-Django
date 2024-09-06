@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     "theme_soft_design",
     "home",
     "profiles",
-    "projects.apps.ProjectsConfig"
+    "projects.apps.ProjectsConfig",
+    'star_ratings',
 ]
 
 MIDDLEWARE = [

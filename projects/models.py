@@ -45,13 +45,31 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def get_donations(self):
-        return 5678
+        donations = self.donations.all()
+        if donations.exists():
+            return donations.aggregate(donation__sum=models.Sum('amount'))['donation__sum']
+        return 0
+
+    def get_donation_count(self):
+        donations = self.donations.all()
+        if donations.exists():
+            return donations.aggregate(total_amount=models.Count('amount'))['total_amount']
+        return 0
+
     def get_progress(self):
         return self.get_donations() / self.total_target * 100
+
+    @property
+    def average_rating(self):
+        ratings = self.ratings.all()
+        if ratings.exists():
+            return ratings.aggregate(models.Avg('rating'))['rating__avg']
+        return 0
+
     def __str__(self):
         return self.title
 
-    @property
+
     def average_rating(self):
         ratings = self.ratings.all()
         if ratings.exists():
@@ -77,9 +95,6 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.project.title}"
-
-
-
 
 
 class Donation(models.Model):
