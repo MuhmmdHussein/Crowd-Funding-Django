@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from profiles.views import EditProfile, profile
+from profiles.views import EditProfile, profile,delet_account
 
 urlpatterns = [
     path('profile/',profile, name='profile'),
-    path('editProfile/',EditProfile, name='editProfile')
+    path('editProfile/',EditProfile, name='editProfile'),
+    path('deleteAccount/',delet_account, name='deleteAccount')
+
 ]
