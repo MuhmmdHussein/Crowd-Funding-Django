@@ -1,6 +1,7 @@
 *.pyc
 *.DS_Store
 *.egg*
+.vscode
 /dist/
 /.idea
 /docs/_build/
@@ -10,12 +11,12 @@ env
 /staticfiles/
 
 #src
-#*.sqlite*
+*.sqlite*
 
 #.env
 node_modules
 .venv/
 venv
 venv/
-# db.sqlite3
+ db.sqlite3
 # db
