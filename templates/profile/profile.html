@@ -1,7 +1,15 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 
-{% block title %}Log In {% endblock title %}
+{% block title %}Profile {% endblock title %}
+{% block stylesheets %}
+<style>
+  .card{
+    background-color: rgba(128, 123, 123, 0.877);
+  }
+    /* Add any custom CSS here */
+</style>
+{% endblock stylesheets %}
 
 {% block body %} class="index-page bg-white" {% endblock body %}
 
@@ -112,19 +120,49 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <section class="pt-0 pb-2 h-10" id="count-stats">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 z-index-2 border-radius-xl mt-n2 mx-auto py-0 blur shadow-blur">
+                            <div class="row">
+                                <div class="col-md-6 position-relative">
+                                    <div class="p-3 text-center">
+                                        <h3 class="text-gradient text-primary">
+                                            <span id="state1">{{ donations|length }} </span>
+                                        </h3>
+                                        <h5 class="mt-3">Donations</h5>
+                                        <!-- <p class="text-sm">People of different ages are welcome to donate</p> -->
+                                    </div>
+                                    <hr class="vertical dark" />
+                                </div>
+                                <div class="col-md-6 position-relative">
+                                    <div class="p-3 text-center">
+                                        <h3 class="text-gradient text-primary">
+                                            <span id="state2">{{ projects|length}}</span>
+                                        </h3>
+                                        <h5 class="mt-3">Projects</h5>
+                                        <!-- <p class="text-sm">Various Projects that deserve to be donated</p> -->
+                                    </div>
+                                    <hr class="vertical dark" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </section>
+              <!-- <div class="row">
                 <div class="col-md-6">
                   <div class="card mb-4 mb-md-0">
                     <div class="card-body">
-                        <!-- <span class="text-primary font-italic me-1">assigment</span> -->
+                        <span class="text-primary font-italic me-1">assigment</span>
                       <p class="mb-4"> Projects
                       </p>
-                      <!-- <p class="mb-1" style="font-size: .77rem;">Palasteen</p> -->
+                      <p class="mb-1" style="font-size: .77rem;">Palasteen</p>
                       <div class="progress rounded" style="block-size: 5px;">
                         <div class="progress-bar" role="progressbar" style="inline-size: 80%" aria-valuenow="80"
                           aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
-                      <!-- <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                      <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
                       <div class="progress rounded" style="block-size: 5px;">
                         <div class="progress-bar" role="progressbar" style="inline-size: 72%" aria-valuenow="72"
                           aria-valuemin="0" aria-valuemax="100"></div>
@@ -143,22 +181,22 @@
                       <div class="progress rounded mb-2" style="block-size: 5px;">
                         <div class="progress-bar" role="progressbar" style="inline-size: 66%" aria-valuenow="66"
                           aria-valuemin="0" aria-valuemax="100"></div>
-                      </div> -->
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="card mb-4 mb-md-0">
-                    <!-- <span class="text-primary font-italic me-1">assigment</span> -->
+                    <span class="text-primary font-italic me-1">assigment</span>
                     <div class="card-body">
                       <p class="mb-4"> Donations
                       </p>
-                      <!-- <p class="mb-1" style="font-size: .77rem;">Web Design</p> -->
+                      <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                       <div class="progress rounded" style="block-size: 5px;">
                         <div class="progress-bar" role="progressbar" style="inline-size: 80%" aria-valuenow="80"
                           aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
-                      <!-- <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                      <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
                       <div class="progress rounded" style="block-size: 5px;">
                         <div class="progress-bar" role="progressbar" style="inline-size: 72%" aria-valuenow="72"
                           aria-valuemin="0" aria-valuemax="100"></div>
@@ -177,14 +215,45 @@
                       <div class="progress rounded mb-2" style="block-size: 5px;">
                         <div class="progress-bar" role="progressbar" style="inline-size: 66%" aria-valuenow="66"
                           aria-valuemin="0" aria-valuemax="100"></div>
-                      </div> -->
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12 mt-3" style="padding-inline-end: 0;">
+                <table class="table table-hover bg-white rounded shadow-lg p-0 text-center">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3" scope="col">Title</th>
+                            <th class="px-5 py-3" scope="col">Donation</th>
+                            <th class="px-5 py-3 " scope="col">Created at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if donations %}
+                            {% for donation in donations%}
+                            <tr>
+                                <td class="px-5 py-3">
+                                    <a href="{% url 'show_project'  donation.project_id %}">
+                                        {{donation.project.title|truncatewords:2}}
+                                    </a>
+                                </td>
+                                <td class="px-5 py-3">{{donation.donation}} L.E </td>
+                                <td class="px-5 py-3">{{donation.created_at | date:"m d,Y"}}</td>
+                            </tr>
+                            {%endfor%}
+                        {%else%}
+                            <tr><td colspan="3">You haven't donated to any project yet :(</td></tr>
+                        {%endif%}
+                    </tbody>
+                </table>
+            </div>
         </div>
+        </div>
+       
     </section>
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -198,7 +267,6 @@
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  <!-- زر الحذف داخل المودال -->
                   <a href="{% url 'deleteAccount' %}" class="btn btn-primary">Delete</a>
               </div>
           </div>

@@ -1,9 +1,10 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from authentication.models import Register
 from home.models import Project
 from profiles.forms import EditProfileForm
 from django.contrib.auth.hashers import make_password, check_password
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -49,9 +50,28 @@ def EditProfile(request):
     return render(request, 'profile/editProfile.html', {'form': form, "user": user_object})
 
 # @login_required  
+# def delet_account(request):
+#     if request.method=='POST':
+#         request.user.delete()
+#         messages.success(request, 'Deleted account done')
+#         return redirect('/')
+#     return render(request, 'profile/Profile.html')
+
 def delet_account(request):
-    if request.method=='POST':
-        request.user.delete()
-        messages.success(request, 'Deleted account done')
-        return redirect('/')
-    return render(request, 'profile/Profile.html')
+    if 'user_id' in request.session:
+        try:
+            user = Register.objects.get(id=request.session['user_id'])
+        except ObjectDoesNotExist:
+            messages.error(request, 'User does not exist.')
+            return redirect('login')  
+
+        user.delete()
+
+        del request.session['user_id']
+
+        messages.success(request, 'Account deleted successfully.')
+
+        
+        return redirect('/')  
+    else:
+        return redirect('login')
